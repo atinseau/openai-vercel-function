@@ -16,7 +16,7 @@ app.post('/', async (req, res) => {
     });
   }
 
-  console.log('body', req)
+  console.log('body', req.body)
 
   const response = await client.responses.create({
     model: 'gpt-4o',
