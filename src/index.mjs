@@ -62,4 +62,4 @@ app.listen(port, () => {
 
 setInterval(() => {
   console.log('Keeping the server alive...')
-}, 100)
+}, 1000)
