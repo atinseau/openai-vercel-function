@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import OpenAI from 'openai';
 
 const client = new OpenAI({
@@ -9,8 +9,14 @@ const app = express()
 const port = 3000
 
 app.post('/', async (req, res) => {
-  console.log('body', JSON.stringify(req.body))
-  console.log('headers', JSON.stringify(req.headers))
+  const internalApiKey = req.headers['internal-api-key']
+  if (internalApiKey !== process.env.INTERNAL_API_KEY) {
+    return res.status(401).send({
+      error: 'Unauthorized'
+    });
+  }
+
+  console.log('body', req)
 
   const response = await client.responses.create({
     model: 'gpt-4o',
