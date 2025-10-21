@@ -21,7 +21,7 @@ app.post('/', async (req, res) => {
   console.log('Received request:', req.body);
 
   client.chat.completions.create({
-    model: 'gpt-4.1',
+    model: 'gpt-5',
     service_tier: "priority",
     stream: false,
     response_format: {
@@ -39,8 +39,7 @@ app.post('/', async (req, res) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          prompt: req.body.prompt,
-          response: response
+          message: response.choices[0].message.content
         })
       })
     })
