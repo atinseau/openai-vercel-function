@@ -8,12 +8,7 @@ const client = new OpenAI({
 const app = express()
 const port = 3000
 
-app.post('/', (req, res) => {
-  console.log(req.body)
-  res.send('Hello World!')
-})
-
-app.get('/', async (req, res) => {
+app.post('/', async (req, res) => {
   console.log(req.body)
   const response = await client.responses.create({
     model: 'gpt-4o',
@@ -21,6 +16,10 @@ app.get('/', async (req, res) => {
     input: 'Are semicolons optional in JavaScript?',
   });
   res.send(response)
+})
+
+app.get('/', async (req, res) => {
+  res.send(process.env)
 })
 
 app.listen(port, () => {
