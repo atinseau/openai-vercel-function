@@ -5,6 +5,7 @@
   "description": "A Vercel serverless function using OpenAI's API",
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.1.0"
   }
 }
