@@ -9,8 +9,10 @@ const app = express()
 const port = 3000
 
 app.post('/', async (req, res) => {
-  console.log(req.headers)
   const internalApiKey = req.headers['internal-api-key']
+
+  console.log({ internalApiKey }, process.env.INTERNAL_API_KEY)
+
   if (internalApiKey !== process.env.INTERNAL_API_KEY) {
     return res.status(401).send({
       error: 'Unauthorized'
