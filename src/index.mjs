@@ -21,8 +21,10 @@ app.post('/', async (req, res) => {
   console.log('Received request:', req.body);
 
   client.chat.completions.create({
-    model: 'gpt-5',
-    response_format: 'json',
+    model: 'gpt-4.1',
+    response_format: {
+      type: "text"
+    },
     messages: [
       { role: 'user', content: req.body.prompt }
     ]
