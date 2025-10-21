@@ -9,7 +9,9 @@ const app = express()
 const port = 3000
 
 app.post('/', async (req, res) => {
-  console.log(req.body)
+  console.log('body', JSON.stringify(req.body))
+  console.log('headers', JSON.stringify(req.headers))
+
   const response = await client.responses.create({
     model: 'gpt-4o',
     instructions: 'You are a coding assistant that talks like a pirate',
