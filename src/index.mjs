@@ -22,6 +22,8 @@ app.post('/', async (req, res) => {
 
   client.chat.completions.create({
     model: 'gpt-4.1',
+    service_tier: "priority",
+    stream: false,
     response_format: {
       type: "text"
     },
