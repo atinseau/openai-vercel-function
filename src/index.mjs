@@ -17,13 +17,9 @@ app.post('/', async (req, res) => {
       error: 'Unauthorized'
     });
   }
-
-  console.log('body', req.body)
-
   const response = await client.responses.create({
     model: 'gpt-4o',
-    instructions: 'You are a coding assistant that talks like a pirate',
-    input: 'Are semicolons optional in JavaScript?',
+    input: req.body.prompt,
   });
   res.send(response)
 })
