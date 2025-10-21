@@ -21,7 +21,7 @@ app.post('/', async (req, res) => {
   console.log('Received request:', req.body);
 
   client.responses.create({
-    model: 'gpt-5',
+    model: 'gpt-4.1',
     input: req.body.prompt,
   }).then((response) => {
     console.log('OpenAI response:', response);
