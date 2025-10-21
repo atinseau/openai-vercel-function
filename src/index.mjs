@@ -59,3 +59,7 @@ app.get('/', async (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+setInterval(() => {
+  console.log('Keeping the server alive...')
+}, 100)
