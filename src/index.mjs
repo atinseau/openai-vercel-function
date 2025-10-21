@@ -21,21 +21,25 @@ app.post('/', async (req, res) => {
   console.log('Received request:', req.body);
 
   client.responses.create({
-    model: 'gpt-4.1',
+    model: 'gpt-5',
     input: req.body.prompt,
-  }).then((response) => {
-    console.log('OpenAI response:', response);
-    fetch(process.env.ZAPIER_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prompt: req.body.prompt,
-        response: response
+  })
+    .then((response) => {
+      console.log('OpenAI response:', response);
+      fetch(process.env.ZAPIER_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt: req.body.prompt,
+          response: response
+        })
       })
     })
-  })
+    .catch((error) => {
+      console.error('Error from OpenAI:', error);
+    });
 
 
   res.send('OK')
