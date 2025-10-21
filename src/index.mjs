@@ -39,6 +39,7 @@ app.post('/', async (req, res) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          metadata: req?.body?.metadata || {},
           message: response.choices[0].message.content
         })
       })
