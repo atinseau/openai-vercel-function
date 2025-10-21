@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import OpenAI from 'openai';
 
 const client = new OpenAI({

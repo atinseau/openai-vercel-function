@@ -6,6 +6,7 @@
     "rootDir": ".",
     "strict": true,
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
