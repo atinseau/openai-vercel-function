@@ -1,9 +1,6 @@
 import express from 'express';
-import OpenAI from 'openai';
-
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+import { handleAnalyseMeetingTranscript } from "./prompt.mjs";
+import { StatusError } from './utils.mjs';
 
 const app = express()
 const port = 3000
@@ -18,36 +15,32 @@ app.post('/', async (req, res) => {
     });
   }
 
+  if (!req.body.promptName) {
+    return res.status(400).send({
+      error: 'promptName is required'
+    });
+  }
+
   console.log('Received request:', req.body);
 
-  client.chat.completions.create({
-    model: 'gpt-5',
-    service_tier: "priority",
-    stream: false,
-    response_format: {
-      type: "text"
-    },
-    messages: [
-      { role: 'user', content: req.body.prompt }
-    ]
-  })
-    .then((response) => {
-      console.log('OpenAI response:', response);
-      fetch(process.env.ZAPIER_WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          metadata: req?.body?.metadata || {},
-          message: response.choices[0].message.content
-        })
-      })
-    })
-    .catch((error) => {
-      console.error('Error from OpenAI:', error);
+  try {
+    switch (req.body.promptName) {
+      case 'analyse-meeting-transcript':
+        await handleAnalyseMeetingTranscript(req)
+        break;
+      default:
+        res.status(400).send({
+          error: 'Unknown promptName'
+        });
+        return;
+    }
+  } catch (error) {
+    console.error('Error handling request:', error);
+    res.status(error instanceof StatusError ? error.status : 500).send({
+      error: error.message
     });
-
+    return;
+  }
 
   res.send('OK')
 })

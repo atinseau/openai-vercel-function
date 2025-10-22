@@ -11,8 +11,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/index.mjs",
-    "src/index.d.ts"
+    "src/**/*.mjs",
+    "index.d.ts"
   ],
   "exclude": [
     "node_modules"
